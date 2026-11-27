@@ -1,0 +1,641 @@
+provinsi,bin_kirim,rating,jumlah
+DKI Jakarta,2.5,5,41388
+Banten,2.0,3,3042
+Sulawesi Selatan,2.5,5,11413
+Banten,4.0,2,25
+NASIONAL,3.0,4,202630
+NASIONAL,2.0,5,376634
+Sulawesi Selatan,5.5,3,9374
+NASIONAL,3.0,3,43082
+NASIONAL,5.5,2,4681
+Kalimantan Timur,2.5,4,15617
+Kalimantan Timur,6.0,3,5858
+Sumatera Utara,5.5,3,11247
+Kalimantan Timur,6.5,3,3961
+NASIONAL,9.0,2,1472
+Sumatera Utara,5.5,4,5406
+Sumatera Utara,10.0,2,148
+Banten,2.5,3,3367
+Kalimantan Timur,5.0,3,8732
+NASIONAL,6.5,4,2873
+Jawa Barat,4.0,5,568
+NASIONAL,6.5,1,185
+Kalimantan Timur,8.5,4,10
+DKI Jakarta,1.0,3,2881
+Banten,4.0,5,212
+DI Yogyakarta,5.5,3,5
+Kalimantan Timur,7.5,1,97
+Jawa Tengah,4.5,5,63
+Jawa Barat,3.0,2,73
+Kalimantan Timur,3.0,2,61
+Sulawesi Selatan,9.5,1,125
+DI Yogyakarta,5.5,4,9
+NASIONAL,11.5,2,15
+DI Yogyakarta,3.5,2,15
+Banten,5.5,4,11
+Bali,4.5,5,7
+Sulawesi Selatan,5.0,3,10765
+Jawa Timur,3.5,3,3008
+Sulawesi Selatan,7.5,2,1751
+Jawa Barat,3.0,4,31652
+NASIONAL,4.5,3,35421
+Jawa Timur,3.0,4,23455
+Banten,3.0,5,4841
+Sumatera Utara,5.5,2,1851
+Jawa Timur,3.5,4,9147
+Sumatera Utara,7.0,3,3639
+Jawa Timur,1.5,3,3965
+NASIONAL,8.5,1,522
+Sumatera Utara,6.5,4,1200
+NASIONAL,4.5,2,2330
+Sulawesi Selatan,3.0,3,4971
+Kalimantan Timur,4.5,2,531
+Bali,2.0,3,1542
+Sulawesi Selatan,6.0,2,1920
+NASIONAL,8.5,4,25
+Sumatera Utara,6.0,5,62
+DKI Jakarta,3.0,2,113
+Sumatera Utara,3.0,2,90
+NASIONAL,9.0,3,371
+Sulawesi Selatan,9.5,2,239
+Sumatera Utara,5.0,5,501
+Jawa Timur,3.0,2,71
+Sulawesi Selatan,6.0,5,44
+Jawa Timur,4.5,5,56
+NASIONAL,3.5,1,2
+Jawa Tengah,5.5,3,23
+Banten,5.5,3,17
+Sulawesi Selatan,8.0,4,36
+Kalimantan Timur,11.5,1,15
+Sulawesi Selatan,5.0,1,8
+Jawa Tengah,5.0,5,6
+Kalimantan Timur,7.5,3,1325
+Sulawesi Selatan,7.5,1,126
+Jawa Tengah,3.5,3,2430
+Sulawesi Selatan,9.0,1,165
+NASIONAL,2.0,3,31903
+Jawa Timur,2.5,5,28212
+DI Yogyakarta,2.0,5,17609
+DKI Jakarta,3.0,5,13292
+NASIONAL,4.5,4,41271
+Banten,3.0,4,12445
+Banten,3.5,3,1677
+Sumatera Utara,6.0,3,9016
+NASIONAL,7.5,2,5200
+NASIONAL,7.0,1,285
+Kalimantan Timur,3.0,5,6819
+NASIONAL,4.0,2,1403
+Sumatera Utara,6.0,2,2374
+Kalimantan Timur,7.0,4,284
+Sulawesi Selatan,8.0,3,826
+Bali,4.5,3,125
+Sumatera Utara,7.5,1,148
+Sumatera Utara,9.5,1,197
+Bali,3.5,3,788
+DKI Jakarta,4.0,5,572
+Jawa Timur,5.0,2,8
+Jawa Timur,1.0,2,3
+Bali,5.5,4,6
+Jawa Timur,1.5,2,13
+NASIONAL,1.5,2,68
+Jawa Barat,2.5,2,57
+Sumatera Utara,12.5,2,1
+NASIONAL,7.0,5,4
+Banten,5.0,4,83
+Bali,5.0,3,36
+Sumatera Utara,6.5,5,13
+NASIONAL,10.5,3,6
+Jawa Barat,1.0,5,208406
+Jawa Tengah,2.5,4,36946
+DI Yogyakarta,1.5,5,32298
+Banten,2.0,4,36648
+Sumatera Utara,8.5,1,190
+Banten,4.5,2,14
+Jawa Timur,3.5,2,66
+DI Yogyakarta,3.0,2,23
+NASIONAL,4.0,4,68399
+NASIONAL,6.5,3,15069
+Sumatera Utara,3.5,4,25458
+NASIONAL,7.0,4,1078
+NASIONAL,1.5,3,22190
+Kalimantan Timur,7.0,3,2376
+NASIONAL,5.5,4,13519
+DI Yogyakarta,1.5,4,20425
+Kalimantan Timur,5.5,4,3638
+Jawa Tengah,2.0,3,4425
+Sulawesi Selatan,7.0,4,341
+Sumatera Utara,4.5,2,862
+Kalimantan Timur,3.5,2,129
+NASIONAL,2.5,2,366
+Jawa Barat,4.5,4,866
+Kalimantan Timur,4.0,2,272
+Sumatera Utara,9.0,3,145
+Sulawesi Selatan,7.5,4,117
+DKI Jakarta,4.5,2,44
+Sumatera Utara,6.5,1,84
+Kalimantan Timur,12.0,1,15
+Jawa Tengah,4.5,2,40
+Sulawesi Selatan,2.5,2,29
+Sulawesi Selatan,11.0,1,36
+NASIONAL,4.5,1,8
+NASIONAL,9.0,4,8
+Jawa Tengah,1.5,2,14
+Sumatera Utara,3.0,4,27427
+Sumatera Utara,7.0,2,2474
+Jawa Barat,3.5,2,73
+Jawa Barat,3.5,1,1
+Banten,1.5,5,64851
+NASIONAL,2.5,3,43132
+Sumatera Utara,7.0,4,453
+Kalimantan Timur,4.5,4,9848
+Sulawesi Selatan,4.0,5,2582
+Bali,1.0,4,16322
+Sulawesi Selatan,5.0,5,423
+Sulawesi Selatan,8.0,2,1268
+NASIONAL,4.5,5,3774
+Jawa Barat,3.0,3,6615
+NASIONAL,6.0,2,5925
+Banten,1.0,3,1002
+Bali,1.5,3,1050
+Jawa Tengah,3.5,5,1808
+Jawa Timur,4.5,4,642
+Kalimantan Timur,8.5,2,688
+Banten,4.5,3,299
+Sumatera Utara,8.5,3,372
+Kalimantan Timur,10.0,1,68
+Jawa Barat,5.0,4,138
+Sulawesi Selatan,5.5,5,144
+Kalimantan Timur,6.0,5,36
+Sulawesi Selatan,9.5,3,41
+NASIONAL,2.0,2,160
+NASIONAL,12.5,1,12
+Sulawesi Selatan,3.5,1,1
+Sulawesi Selatan,11.5,2,6
+Jawa Barat,2.0,2,34
+Bali,2.5,2,21
+DI Yogyakarta,5.0,3,44
+Jawa Barat,1.5,2,20
+DKI Jakarta,1.5,4,112881
+Sumatera Utara,2.5,5,13890
+Kalimantan Timur,4.0,4,14216
+Sumatera Utara,6.5,3,6036
+Kalimantan Timur,2.5,5,8986
+Bali,2.0,4,18342
+Sumatera Utara,8.5,2,941
+DKI Jakarta,3.5,3,4573
+Kalimantan Timur,6.5,2,1715
+DKI Jakarta,2.5,2,85
+Jawa Tengah,3.0,2,55
+Banten,4.5,1,1
+NASIONAL,2.5,5,194296
+NASIONAL,3.5,4,115570
+DKI Jakarta,1.0,5,228439
+Jawa Barat,3.5,5,2956
+Jawa Barat,2.5,5,37360
+DI Yogyakarta,2.5,5,7507
+Jawa Tengah,3.0,4,19018
+Sumatera Utara,5.0,3,13089
+Sulawesi Selatan,6.0,4,2220
+NASIONAL,6.0,4,6649
+Bali,3.0,4,6329
+Sumatera Utara,6.5,2,2640
+Sumatera Utara,7.5,3,1952
+Jawa Tengah,4.0,4,2226
+Banten,4.0,4,1552
+Jawa Barat,6.0,3,11
+Banten,3.5,5,1209
+NASIONAL,3.0,2,605
+NASIONAL,10.5,1,183
+Sulawesi Selatan,9.0,3,126
+Jawa Barat,4.5,2,53
+Sulawesi Selatan,11.5,1,17
+NASIONAL,11.5,1,53
+DI Yogyakarta,4.5,5,14
+Kalimantan Timur,7.0,5,3
+Banten,1.0,5,83264
+Jawa Barat,2.0,4,90779
+DI Yogyakarta,2.0,4,18282
+Kalimantan Timur,7.0,1,78
+Bali,4.0,3,386
+NASIONAL,5.0,4,24925
+Banten,2.0,5,35340
+Sulawesi Selatan,4.5,3,10867
+Jawa Timur,1.5,4,76947
+Jawa Tengah,1.0,4,48642
+Bali,2.5,4,12336
+Jawa Timur,3.0,3,4985
+Sulawesi Selatan,3.5,5,4952
+Jawa Timur,4.0,3,1470
+NASIONAL,1.0,3,10998
+DI Yogyakarta,4.5,3,147
+Kalimantan Timur,2.5,3,2162
+DI Yogyakarta,3.0,5,2434
+Jawa Tengah,2.5,3,4877
+NASIONAL,10.5,2,144
+NASIONAL,5.0,1,24
+Sulawesi Selatan,12.5,1,4
+Kalimantan Timur,10.0,3,14
+Sumatera Utara,12.0,1,13
+Sumatera Utara,10.0,3,11
+Sumatera Utara,8.5,4,9
+Sulawesi Selatan,3.5,3,7478
+Kalimantan Timur,5.0,4,6450
+Sumatera Utara,4.5,3,12957
+Bali,1.5,4,20465
+DI Yogyakarta,2.5,3,1658
+DI Yogyakarta,2.0,3,1510
+NASIONAL,2.5,4,320823
+NASIONAL,1.0,4,344857
+NASIONAL,5.5,3,28388
+Sumatera Utara,2.5,4,23656
+Sumatera Utara,3.5,3,8944
+Sumatera Utara,2.5,3,3320
+NASIONAL,7.0,3,9050
+Kalimantan Timur,4.5,3,8531
+DI Yogyakarta,2.5,4,12252
+Sumatera Utara,6.0,4,2647
+Jawa Tengah,1.0,3,1567
+Jawa Timur,4.0,4,2788
+Kalimantan Timur,6.0,4,1774
+Bali,3.5,4,2455
+Sumatera Utara,4.0,5,2982
+Banten,1.5,3,2069
+Bali,4.0,4,719
+DI Yogyakarta,1.5,3,1053
+DI Yogyakarta,3.0,3,1321
+NASIONAL,6.0,5,142
+NASIONAL,5.5,5,448
+DKI Jakarta,4.5,4,982
+DKI Jakarta,5.0,4,197
+Sumatera Utara,8.0,1,209
+NASIONAL,5.5,1,40
+Banten,4.0,3,768
+Kalimantan Timur,9.0,3,100
+Sumatera Utara,7.5,4,140
+Sumatera Utara,6.0,1,44
+Kalimantan Timur,11.0,2,15
+Sumatera Utara,5.5,1,18
+Sulawesi Selatan,10.5,2,40
+Sulawesi Selatan,12.0,1,15
+Sumatera Utara,11.0,1,46
+Sulawesi Selatan,7.0,5,1
+Jawa Timur,4.5,2,26
+Bali,1.5,2,2
+Sulawesi Selatan,10.0,3,11
+Jawa Timur,5.0,5,3
+Sumatera Utara,4.0,4,20862
+DKI Jakarta,3.5,2,104
+Sumatera Utara,9.0,1,207
+NASIONAL,7.5,3,4916
+Jawa Tengah,1.5,5,97779
+DKI Jakarta,1.0,4,88893
+NASIONAL,7.5,1,371
+Banten,2.5,4,24411
+Bali,2.0,5,17715
+Sumatera Utara,4.5,4,15085
+DKI Jakarta,3.0,3,7241
+Kalimantan Timur,3.5,3,6047
+Sulawesi Selatan,8.5,2,800
+Kalimantan Timur,3.5,5,3895
+NASIONAL,9.0,1,486
+Jawa Tengah,1.5,3,3082
+Sumatera Utara,3.0,3,5950
+Bali,3.0,3,1279
+Sumatera Utara,4.5,5,1351
+Jawa Timur,3.5,5,2276
+Sumatera Utara,11.0,2,27
+Kalimantan Timur,5.5,5,136
+NASIONAL,8.0,1,498
+Kalimantan Timur,6.5,4,712
+NASIONAL,7.5,4,338
+Kalimantan Timur,9.5,1,107
+Jawa Tengah,4.5,4,493
+Kalimantan Timur,6.0,1,31
+Jawa Tengah,3.5,2,62
+DI Yogyakarta,4.0,5,116
+Sumatera Utara,9.5,3,42
+DKI Jakarta,5.5,3,54
+Jawa Barat,6.0,2,3
+Kalimantan Timur,5.5,1,7
+Kalimantan Timur,10.5,3,1
+DKI Jakarta,1.5,2,12
+DKI Jakarta,5.0,5,9
+Kalimantan Timur,9.0,4,5
+Sulawesi Selatan,4.5,1,2
+Jawa Tengah,2.0,5,53348
+Jawa Tengah,1.0,5,124768
+Sulawesi Selatan,4.0,4,17603
+Sumatera Utara,3.0,5,10284
+Kalimantan Timur,4.0,3,7699
+Sulawesi Selatan,6.5,2,2233
+NASIONAL,2.0,4,386083
+NASIONAL,5.0,3,33477
+DKI Jakarta,2.0,4,99505
+NASIONAL,8.5,2,2429
+Jawa Tengah,1.5,4,62164
+Jawa Barat,2.5,4,61938
+Jawa Timur,3.0,5,9060
+NASIONAL,3.0,5,77209
+NASIONAL,4.0,3,37082
+Sulawesi Selatan,4.5,4,12629
+Sulawesi Selatan,7.5,3,1639
+Jawa Barat,3.5,3,4058
+Sulawesi Selatan,2.5,4,19700
+Banten,3.5,4,4903
+Sumatera Utara,8.0,3,926
+Jawa Timur,2.0,3,5638
+Sulawesi Selatan,5.0,4,8089
+Sulawesi Selatan,9.0,2,519
+Sulawesi Selatan,5.0,2,1132
+NASIONAL,5.0,2,3535
+Jawa Barat,5.0,3,189
+NASIONAL,8.5,3,956
+DI Yogyakarta,4.0,4,720
+Sumatera Utara,10.5,2,59
+Jawa Tengah,4.0,5,322
+Sulawesi Selatan,3.5,2,175
+Bali,4.5,4,204
+DKI Jakarta,5.0,3,246
+Kalimantan Timur,9.5,2,204
+DI Yogyakarta,4.5,4,179
+Sulawesi Selatan,10.0,1,104
+Sulawesi Selatan,3.0,2,73
+Jawa Timur,5.0,3,131
+NASIONAL,10.0,3,36
+Banten,5.0,2,9
+Kalimantan Timur,12.5,1,3
+NASIONAL,11.0,3,3
+Jawa Tengah,5.0,2,13
+Bali,5.5,2,3
+Jawa Tengah,2.0,4,54721
+Jawa Barat,1.0,4,81228
+Bali,1.0,5,41484
+Jawa Timur,4.0,2,53
+Jawa Tengah,2.5,2,38
+Sulawesi Selatan,6.5,3,5068
+Sumatera Utara,5.0,4,9675
+Kalimantan Timur,3.5,4,16808
+Sulawesi Selatan,3.0,4,23020
+Jawa Barat,1.5,4,102629
+DKI Jakarta,3.5,5,3288
+Jawa Barat,4.0,4,3657
+Bali,2.5,5,7698
+DKI Jakarta,2.0,3,8202
+DKI Jakarta,1.5,3,5761
+Jawa Barat,4.0,3,2042
+Sulawesi Selatan,6.0,3,7328
+DI Yogyakarta,3.5,3,850
+Kalimantan Timur,6.0,2,1622
+Kalimantan Timur,4.5,5,930
+Kalimantan Timur,8.0,2,1005
+NASIONAL,9.5,2,738
+Sulawesi Selatan,6.5,4,961
+Bali,3.5,5,578
+Kalimantan Timur,5.0,2,898
+Kalimantan Timur,7.5,2,1369
+Banten,5.0,3,90
+Sumatera Utara,10.0,1,116
+Jawa Tengah,4.5,3,444
+DI Yogyakarta,1.0,3,497
+Sumatera Utara,5.0,1,10
+Sumatera Utara,10.5,1,70
+Kalimantan Timur,10.5,2,45
+Jawa Timur,2.5,2,58
+Sulawesi Selatan,6.5,5,8
+Banten,2.0,2,17
+Sumatera Utara,2.5,2,29
+Banten,2.5,2,31
+Kalimantan Timur,5.0,1,6
+DI Yogyakarta,5.5,2,1
+DI Yogyakarta,4.5,2,13
+NASIONAL,4.0,1,4
+Jawa Timur,1.0,4,61243
+Banten,2.5,5,15272
+Sulawesi Selatan,3.0,5,8643
+Bali,4.0,2,10
+DKI Jakarta,3.0,4,34493
+Kalimantan Timur,3.0,4,18520
+NASIONAL,6.5,2,6592
+Sulawesi Selatan,2.5,3,2699
+Jawa Barat,3.5,4,12293
+Jawa Barat,1.5,3,5210
+Jawa Barat,3.0,5,12144
+NASIONAL,6.0,3,22235
+Sumatera Utara,9.0,2,588
+Jawa Barat,4.5,3,713
+Bali,3.0,5,2372
+Sulawesi Selatan,4.5,2,735
+Jawa Barat,1.0,3,2560
+Sulawesi Selatan,4.0,2,388
+NASIONAL,10.0,1,288
+Sulawesi Selatan,10.5,1,65
+DI Yogyakarta,5.0,4,30
+Kalimantan Timur,8.5,1,139
+DKI Jakarta,4.5,5,74
+Kalimantan Timur,7.5,4,81
+Kalimantan Timur,10.0,2,96
+Jawa Barat,4.5,5,91
+Jawa Timur,2.0,2,31
+NASIONAL,6.5,5,33
+Jawa Tengah,2.0,2,27
+NASIONAL,12.0,1,43
+Sumatera Utara,11.5,1,21
+Bali,3.5,2,13
+Sulawesi Selatan,9.0,4,2
+Bali,4.5,2,12
+DKI Jakarta,1.5,5,178801
+Banten,1.0,4,32364
+Jawa Barat,2.5,3,8347
+DI Yogyakarta,1.0,4,16165
+Jawa Tengah,3.0,3,3989
+Bali,3.0,2,17
+NASIONAL,3.5,3,39853
+Jawa Timur,2.0,4,67806
+Jawa Barat,2.0,5,89049
+DKI Jakarta,2.0,5,97275
+DKI Jakarta,4.0,4,4056
+DKI Jakarta,3.5,4,13371
+Sulawesi Selatan,4.0,3,9643
+NASIONAL,4.0,5,9831
+Kalimantan Timur,5.5,2,1249
+Kalimantan Timur,3.0,3,3979
+Sumatera Utara,7.5,2,2080
+Sumatera Utara,4.0,2,447
+NASIONAL,11.0,2,58
+Jawa Tengah,4.0,3,1171
+Jawa Timur,5.0,4,123
+Sulawesi Selatan,8.5,3,336
+DKI Jakarta,4.5,3,807
+NASIONAL,8.0,4,102
+NASIONAL,6.0,1,112
+NASIONAL,1.0,2,9
+Kalimantan Timur,8.0,1,120
+Sulawesi Selatan,8.0,1,169
+Kalimantan Timur,11.0,1,20
+Kalimantan Timur,8.5,3,248
+Jawa Barat,5.5,4,23
+Banten,4.5,5,27
+DI Yogyakarta,2.0,2,6
+DI Yogyakarta,4.0,2,16
+Sulawesi Selatan,3.5,4,21309
+Jawa Timur,2.0,5,66298
+Jawa Timur,2.5,4,46143
+Jawa Barat,1.5,5,162473
+Bali,1.5,5,32821
+DKI Jakarta,2.5,3,9105
+Jawa Timur,2.5,3,5996
+DI Yogyakarta,5.0,2,3
+NASIONAL,1.5,5,691166
+NASIONAL,3.5,5,27658
+NASIONAL,8.0,3,2375
+DKI Jakarta,4.0,3,2166
+NASIONAL,8.0,2,3879
+Sulawesi Selatan,4.5,5,1161
+Sulawesi Selatan,7.0,2,2022
+DI Yogyakarta,3.5,5,593
+Sulawesi Selatan,5.5,2,1549
+Sumatera Utara,8.0,2,1606
+Bali,2.5,3,1601
+Kalimantan Timur,9.0,1,114
+Jawa Timur,5.5,3,40
+Sulawesi Selatan,8.5,1,193
+Sumatera Utara,5.5,5,167
+DI Yogyakarta,4.0,3,389
+Sumatera Utara,3.5,2,177
+Kalimantan Timur,8.0,4,22
+Sulawesi Selatan,6.0,1,37
+Sumatera Utara,7.0,1,123
+Kalimantan Timur,9.5,3,27
+NASIONAL,9.5,3,110
+NASIONAL,11.0,1,102
+Banten,3.0,2,29
+Jawa Barat,5.5,3,45
+DKI Jakarta,4.0,2,76
+DKI Jakarta,5.5,2,6
+Banten,1.5,2,5
+Kalimantan Timur,6.5,5,12
+Kalimantan Timur,4.5,1,4
+DKI Jakarta,2.5,4,67824
+Banten,3.0,3,2752
+Jawa Barat,2.0,3,7544
+Kalimantan Timur,7.0,2,1571
+Kalimantan Timur,4.0,5,1956
+Kalimantan Timur,6.5,1,51
+NASIONAL,1.0,5,883994
+NASIONAL,1.5,4,436364
+NASIONAL,7.0,2,6069
+Banten,1.5,4,40853
+Kalimantan Timur,8.0,3,623
+Jawa Tengah,2.5,5,22570
+Sumatera Utara,4.0,3,11348
+Sulawesi Selatan,7.0,3,3034
+Sumatera Utara,3.5,5,6103
+Jawa Tengah,3.0,5,7320
+NASIONAL,5.0,5,1337
+NASIONAL,10.0,2,357
+DI Yogyakarta,3.0,4,6271
+Jawa Timur,4.5,3,531
+Jawa Tengah,5.0,4,109
+Sumatera Utara,9.5,2,295
+Sulawesi Selatan,10.0,2,113
+Bali,4.0,5,123
+Kalimantan Timur,9.0,2,365
+Sumatera Utara,8.0,4,44
+NASIONAL,12.5,2,1
+Sulawesi Selatan,6.5,1,50
+Sulawesi Selatan,11.0,3,1
+Sumatera Utara,4.0,1,2
+Sulawesi Selatan,7.5,5,2
+DI Yogyakarta,1.0,5,41393
+Jawa Timur,1.5,5,122143
+Bali,1.0,3,516
+Jawa Barat,1.0,2,2
+Jawa Timur,1.0,5,156240
+Kalimantan Timur,5.5,3,7567
+Sulawesi Selatan,5.5,4,4369
+Banten,4.5,4,343
+Jawa Tengah,3.5,4,7412
+Jawa Timur,1.0,3,1975
+NASIONAL,3.5,2,844
+Kalimantan Timur,5.0,5,381
+Sumatera Utara,5.0,2,1423
+Jawa Timur,4.0,5,398
+DI Yogyakarta,3.5,4,2414
+NASIONAL,9.5,1,429
+Banten,3.5,2,30
+Jawa Tengah,5.0,3,155
+Sulawesi Selatan,5.5,1,15
+Bali,5.0,4,31
+Sulawesi Selatan,7.0,1,84
+DKI Jakarta,2.0,2,37
+Sulawesi Selatan,11.0,2,16
+Kalimantan Timur,10.5,1,48
+Bali,2.0,2,8
+Bali,5.5,3,16
+Jawa Barat,4.0,2,72
+Jawa Tengah,4.0,2,44
+Jawa Barat,5.0,2,16
+Jawa Tengah,5.5,4,12
+NASIONAL,7.5,5,2
+Bali,7.0,3,1
+Jawa Barat,6.5,3,2
+Sumatera Utara,11.0,3,2
+Jawa Timur,5.5,4,24
+Sulawesi Selatan,10.5,3,4
+Bali,6.5,3,1
+Jawa Barat,6.0,4,3
+Sulawesi Selatan,13.0,1,2
+NASIONAL,12.0,2,2
+Bali,5.0,5,3
+Bali,6.0,3,2
+DKI Jakarta,5.5,5,1
+DKI Jakarta,6.0,4,3
+Sumatera Utara,12.0,2,1
+Kalimantan Timur,2.5,2,13
+Sumatera Utara,13.0,1,3
+DKI Jakarta,5.5,4,21
+DI Yogyakarta,6.0,3,4
+Jawa Barat,5.0,5,8
+DKI Jakarta,6.0,3,6
+Jawa Tengah,5.5,2,5
+DKI Jakarta,5.0,2,29
+Sumatera Utara,12.5,1,5
+Banten,5.0,5,2
+Bali,5.0,2,4
+Jawa Barat,6.5,2,2
+Jawa Timur,6.0,3,4
+Jawa Barat,5.5,2,7
+Sumatera Utara,10.5,3,1
+Jawa Tengah,6.5,2,1
+DKI Jakarta,7.0,2,2
+Jawa Timur,5.5,2,5
+Sumatera Utara,11.5,2,8
+Banten,5.5,2,5
+NASIONAL,13.0,1,9
+DI Yogyakarta,1.5,2,2
+DI Yogyakarta,1.0,2,2
+Sulawesi Selatan,12.0,2,1
+Sulawesi Selatan,8.5,4,6
+DI Yogyakarta,2.5,2,5
+Jawa Timur,6.5,3,1
+Banten,6.0,3,2
+NASIONAL,13.5,1,3
+Sumatera Utara,9.0,4,1
+Sumatera Utara,13.5,1,2
+Jawa Tengah,6.0,3,4
+Sumatera Utara,4.5,1,1
+Kalimantan Timur,13.0,1,4
+DI Yogyakarta,5.0,5,1
+Bali,1.0,2,2
+Kalimantan Timur,11.5,2,1
+DKI Jakarta,6.0,2,2
+Jawa Timur,6.0,4,1
+Jawa Barat,3.0,1,1
+Kalimantan Timur,13.5,1,1
+Kalimantan Timur,4.0,1,1
+NASIONAL,3.0,1,1
+Jawa Tengah,6.0,2,3
+Sulawesi Selatan,4.0,1,1
+DKI Jakarta,6.5,2,1
+Jawa Tengah,6.0,4,1
+Jawa Timur,6.0,2,1

@@ -1,0 +1,91 @@
+# ============================================================================
+# KLASTER SPARK VIRTUAL -- 1 master + 2 worker + pipeline + dashboard
+#
+#   docker compose up -d --build spark-master spark-worker-1 spark-worker-2
+#   docker compose run --rm pipeline          # jalankan pipeline di klaster
+#   docker compose up -d dashboard            # buka http://localhost:8501
+#   docker compose down                       # matikan semua
+#
+# UI yang bisa dibuka di peramban:
+#   http://localhost:8080  Spark Master (daftar worker & aplikasi)
+#   http://localhost:8081  Worker 1      http://localhost:8082  Worker 2
+#   http://localhost:4040  Spark UI aplikasi (job, stage, DAG) saat pipeline berjalan
+#   http://localhost:8501  Dashboard Streamlit
+#
+# Seluruh folder proyek di-mount ke /opt/project di setiap kontainer, sehingga
+# master, worker, driver, dan dashboard melihat folder data/ yang SAMA
+# (pengganti HDFS/S3 untuk keperluan praktikum).
+# ============================================================================
+
+x-spark-umum: &spark-umum
+  build: .
+  image: bd-p09-spark:latest
+  user: root
+  volumes:
+    - ./:/opt/project
+  networks: [bigdata]
+
+services:
+  spark-master:
+    <<: *spark-umum
+    container_name: spark-master
+    hostname: spark-master
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
+      --host spark-master --port 7077 --webui-port 8080
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+
+  spark-worker-1:
+    <<: *spark-umum
+    container_name: spark-worker-1
+    hostname: spark-worker-1
+    depends_on: [spark-master]
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker
+      spark://spark-master:7077 --cores 2 --memory 2g --webui-port 8081
+    ports:
+      - "8081:8081"
+
+  spark-worker-2:
+    <<: *spark-umum
+    container_name: spark-worker-2
+    hostname: spark-worker-2
+    depends_on: [spark-master]
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker
+      spark://spark-master:7077 --cores 2 --memory 2g --webui-port 8082
+    ports:
+      - "8082:8082"
+
+  # Driver Spark: mengirim pekerjaan ke klaster, lalu menulis tabel gold.
+  pipeline:
+    <<: *spark-umum
+    container_name: spark-pipeline
+    hostname: spark-pipeline
+    profiles: ["pipeline"]          # hanya jalan bila dipanggil: docker compose run --rm pipeline
+    depends_on: [spark-master, spark-worker-1, spark-worker-2]
+    environment:
+      SPARK_MASTER: spark://spark-master:7077
+      SPARK_DRIVER_HOST: spark-pipeline
+      SPARK_DRIVER_MEMORY: 1g
+      SPARK_EXECUTOR_MEMORY: 1536m
+      N_ROWS: "5000000"
+    command: python3 pipeline/run_pipeline.py
+    ports:
+      - "4040:4040"
+
+  dashboard:
+    <<: *spark-umum
+    container_name: bd-dashboard
+    hostname: bd-dashboard
+    command: >
+      python3 -m streamlit run dashboard/app.py
+      --server.address 0.0.0.0 --server.port 8501 --server.headless true
+    ports:
+      - "8501:8501"
+
+networks:
+  bigdata:
+    driver: bridge

@@ -1,0 +1,9 @@
+metrik,nilai,keterangan
+baris_bronze,5025160,Total baris mentah (termasuk duplikat)
+provinsi_tidak_baku,20254,"Nama provinsi tidak baku -> dinormalisasi, tidak dibuang"
+harga_tidak_valid,14988,Harga kosong / <= 0 -> dibuang
+kategori_kosong,4968,Kategori kosong -> dibuang
+rating_di_luar_skala,9245,Rating di luar 1-5 -> dijadikan NULL
+lama_kirim_hilang,14230,Lama kirim kosong pada pesanan terkirim -> diabaikan saat rata-rata
+baris_silver,4980147,Baris bersih di lapisan silver
+baris_dibuang_total,45013,Duplikat + harga/kategori tidak valid
