@@ -1,0 +1,6 @@
+# Refresh Silver dan Gold setiap malam pukul 02.00 (waktu server).
+# Sesuaikan path proyek, virtualenv, dan lokasi log sebelum memasang dengan crontab.
+0 2 * * * mkdir -p /opt/BD_P09_Proyek_Dashboard_Penjualan/logs && cd /opt/BD_P09_Proyek_Dashboard_Penjualan && /opt/BD_P09_Proyek_Dashboard_Penjualan/.venv/bin/python pipeline/run_pipeline.py --skip-bronze >> /opt/BD_P09_Proyek_Dashboard_Penjualan/logs/pipeline.log 2>&1
+
+# Instal contoh ini dengan:
+# crontab -e

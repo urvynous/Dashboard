@@ -56,7 +56,8 @@ def main():
     t = time.perf_counter(); dq = step2_silver.jalankan(spark)
     durasi["silver"] = round(time.perf_counter() - t, 1)
 
-    t = time.perf_counter(); ringkas_gold = step3_gold.jalankan(spark)
+    metrik_pipeline = {}
+    t = time.perf_counter(); ringkas_gold = step3_gold.jalankan(spark, metrik_pipeline)
     durasi["gold"] = round(time.perf_counter() - t, 1)
 
     # Pembanding latensi: jawaban dashboard dari GOLD vs dihitung ulang dari SILVER.
@@ -64,7 +65,7 @@ def main():
     from pyspark.sql import functions as F
     t = time.perf_counter()
     g = pd.read_parquet(os.path.join(config.GOLD_DIR, "gold_cube.parquet"))
-    _ = g[g.gid == 5][["provinsi", "omzet", "sum_kirim", "n_kirim"]]
+    _ = g[g.gid == 11][["provinsi", "omzet", "sum_kirim", "n_kirim"]]
     t_gold = time.perf_counter() - t
     t = time.perf_counter()
     _ = (spark.read.parquet(config.SILVER_DIR).groupBy("provinsi")
@@ -86,6 +87,7 @@ def main():
                       "silver": ukuran_folder_mb(config.SILVER_DIR),
                       "gold": ukuran_folder_mb(config.GOLD_DIR)},
         "durasi_detik": durasi,
+        "efisiensi_grouping_sets": metrik_pipeline.get("efisiensi_grouping_sets"),
         "latensi_detik": {"gold": round(t_gold, 4), "silver": round(t_silver, 3)},
         "periode": f"{config.TANGGAL_MULAI} s.d. +{config.JUMLAH_HARI} hari",
     }

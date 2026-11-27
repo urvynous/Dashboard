@@ -9,6 +9,7 @@ Contoh penerapan lengkap materi *Pertemuan 9: Visualisasi Dataset Skala Besar da
 | **Big Data** | 5 juta pesanan (bisa dinaikkan ke puluhan juta) dibangkitkan langsung di Spark, lengkap dengan "kotoran" data nyata | `pipeline/step1_bronze.py` |
 | **Spark virtual** | Mode lokal `local[*]` **atau** klaster Spark virtual 1 master + 2 worker lewat Docker Compose | `pipeline/spark_session.py`, `docker-compose.yml`, `Dockerfile` |
 | **Dashboard** | Dashboard interaktif Streamlit (5 tab, filter, KPI, drill-down) + dashboard PNG statis untuk laporan | `dashboard/app.py`, `output/figures/` |
+| **Penjadwalan** | Contoh pembaruan pipeline setiap malam dari data Bronze yang ada | `scripts/schedule_cron.txt` |
 
 ---
 
@@ -20,7 +21,7 @@ Contoh penerapan lengkap materi *Pertemuan 9: Visualisasi Dataset Skala Besar da
  │ Pembangkit   │──▶│ Parquet mentah  │──▶│ bersih + diperkaya│──▶│ cube · rollup         │──▶│ Streamlit (interaktif)│
  │ data (Spark) │   │ partisi bulan   │   │ partisi bulan     │   │ kuantil · heatmap     │   │ PNG laporan (statis)  │
  └──────────────┘   │ + duplikat,     │   │ dedup, normalisasi│   │ deret waktu + MA7     │   │ CSV → Excel/Power BI  │
-                    │ data kotor      │   │ flag kualitas data│   │ (± 7.500 baris total) │   └──────────────────────┘
+                    │ data kotor      │   │ flag kualitas data│   │ tabel agregat ringkas │   └──────────────────────┘
                     └─────────────────┘   └──────────────────┘   └───────────────────────┘
         └──────────────────────── Apache Spark (local[*] atau spark://spark-master:7077) ──────────┘
 ```
@@ -38,6 +39,8 @@ BD_P09_Proyek_Dashboard_Penjualan/
 ├── Dockerfile                   ← image klaster Spark virtual
 ├── docker-compose.yml           ← master + 2 worker + pipeline + dashboard
 ├── .streamlit/config.toml       ← tema dashboard
+├── scripts/
+│   └── schedule_cron.txt        ← contoh pembaruan pipeline setiap malam
 ├── pipeline/
 │   ├── spark_session.py         ← SparkSession yang sama untuk lokal & klaster
 │   ├── step1_bronze.py          ← membangkitkan Big Data mentah (+ data kotor)
@@ -53,7 +56,7 @@ BD_P09_Proyek_Dashboard_Penjualan/
 └── output/figures/              ← PNG hasil langkah 4 (sudah disertakan)
 ```
 
-> Tabel *gold* hasil eksekusi 5 juta baris **sudah disertakan**, sehingga dashboard bisa langsung dibuka tanpa menjalankan Spark (Cara A).
+> Tabel *gold* hasil eksekusi 5 juta baris **sudah disertakan**, sehingga dashboard bisa langsung dibuka tanpa menjalankan Spark (Cara A). Untuk memakai filter kanal dan metrik efisiensi agregasi, jalankan ulang pipeline agar tabel Gold dan metadata diperbarui.
 
 ## 3. Cara menjalankan
 
@@ -78,6 +81,11 @@ Atau cukup `./run_local.sh` (Linux/macOS/WSL) / `run_local.bat` (Windows).
 Selama pipeline berjalan, buka **Spark UI** di `http://localhost:4040` untuk melihat *job*, *stage*, dan DAG.
 
 Langkah dapat dijalankan satu per satu: `python pipeline/step1_bronze.py`, lalu `step2_silver.py`, `step3_gold.py`, `step4_laporan_statis.py`.
+
+Untuk pembaruan terjadwal dari data Bronze yang sudah tersedia, gunakan contoh
+cron di `scripts/schedule_cron.txt`. Sesuaikan lokasi proyek, Python environment,
+dan log sebelum memasangnya dengan `crontab -e`. Opsi `--skip-bronze` melewati
+pembuatan ulang data mentah, lalu memperbarui Silver dan Gold.
 
 ### Cara C — Klaster Spark virtual dengan Docker (1 master + 2 worker)
 
@@ -132,25 +140,25 @@ Periode 1 Okt 2025 – 30 Sep 2026, 10 provinsi, 6 kategori, 3 kanal, 5 metode b
 
 | Tabel gold | Teknik Spark | Dipakai untuk |
 |---|---|---|
-| `gold_cube` | `cube("bulan","provinsi","kategori")` + `grouping_id()` | KPI, tren bulanan, peringkat — semua filter |
-| `gold_rollup_wilayah` | `rollup("pulau","provinsi","kategori")` | Treemap drill-down wilayah |
-| `gold_harian` | `rollup` + `Window.rowsBetween(-6,0)` | Deret waktu harian + rata-rata bergerak 7 hari |
-| `gold_heatmap_kirim_rating` | `GROUPING SETS` + binning 0,5 hari | Heatmap pengganti scatter jutaan titik |
+| `gold_cube` | `cube("bulan","provinsi","kategori","kanal")` + `grouping_id()` | KPI, tren bulanan, peringkat — termasuk filter kanal |
+| `gold_rollup_wilayah` | `rollup("kanal","pulau","provinsi","kategori")` | Treemap drill-down wilayah per kanal |
+| `gold_harian` | `cube` + `Window.rowsBetween(-6,0)` | Deret waktu harian per kanal + rata-rata bergerak 7 hari |
+| `gold_heatmap_kirim_rating` | `GROUPING SETS` + binning 0,5 hari | Heatmap pengganti scatter jutaan titik; kanal/provinsi bisa difilter |
 | `gold_kuantil_kirim` / `_nilai` | `percentile_approx(..., array(0.05,...,0.95))` | Box plot terdistribusi (`plt.bxp`, `go.Box`) |
 | `gold_jam_hari` | `GROUPING SETS` | Heatmap jam × hari |
 | `gold_metode_bayar` | `groupBy().pivot("status")` | Tingkat pembatalan per metode bayar |
 | `gold_data_quality` | agregasi kondisi di silver | Laporan kualitas data |
-| `gold_metadata.json` | — | Waktu pembaruan, ukuran tiap lapisan, durasi, latensi |
+| `gold_metadata.json` | — | Waktu pembaruan, ukuran tiap lapisan, durasi, latensi, efisiensi GROUPING SETS |
 
-**Membaca `grouping_id` (kolom `gid`) pada `gold_cube`:** bit 4 = bulan diagregasi, bit 2 = provinsi diagregasi, bit 1 = kategori diagregasi.
+**Membaca `grouping_id` (kolom `gid`) pada `gold_cube`:** untuk urutan dimensi bulan, provinsi, kategori, kanal, bobot bit-nya masing-masing 8, 4, 2, 1. Bit bernilai 1 berarti dimensi itu diagregasi; bulan selalu dipertahankan untuk KPI dan tren.
 
-| gid | Arti baris | Contoh pemakaian |
+| gid | Dimensi diagregasi | Contoh pemakaian |
 |---|---|---|
-| 0 | bulan × provinsi × kategori | detail terkecil |
-| 3 | per bulan (nasional, semua kategori) | tren bulanan nasional |
-| 5 | per provinsi (seluruh periode) | peringkat provinsi |
-| 6 | per kategori (seluruh periode) | omzet per kategori |
-| 7 | total nasional | kartu KPI |
+| 0 | — | bulan × provinsi × kategori × kanal |
+| 3 | kategori, kanal | tren per provinsi |
+| 7 | provinsi, kategori, kanal | tren bulanan nasional |
+| 11 | bulan, kategori, kanal | peringkat provinsi seluruh periode |
+| 15 | bulan, provinsi, kategori, kanal | total nasional seluruh periode |
 
 `gid` lebih aman daripada `isNull()` karena NULL "subtotal" tidak tertukar dengan NULL "data kosong".
 
@@ -167,7 +175,7 @@ Periode 1 Okt 2025 – 30 Sep 2026, 10 provinsi, 6 kategori, 3 kanal, 5 metode b
 | Perilaku Pelanggan | Heatmap jam × hari, pembatalan per metode bayar, sebaran nilai transaksi | Heatmap, batang horizontal terurut |
 | Pipeline & Kualitas Data | Diagram arsitektur, jumlah baris & ukuran tiap lapisan, latensi gold vs silver, unduh CSV | Transparansi sumber & waktu pembaruan |
 
-Filter di sidebar: **provinsi**, **kategori**, **rentang bulan**.
+Filter di sidebar: **rentang bulan**, **provinsi**, **kategori**, dan **kanal penjualan**. Header juga menampilkan waktu modifikasi terbaru di `data/gold/` dalam WIB.
 
 ## 7. Grafik statis untuk laporan (`output/figures/`)
 

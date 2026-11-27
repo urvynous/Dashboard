@@ -7,9 +7,9 @@ gold berikut yang ukurannya ribuan baris.
 
 | Tabel gold                 | Teknik Spark                         | Dipakai untuk                         |
 |----------------------------|--------------------------------------|---------------------------------------|
-| gold_cube                  | cube(bulan, provinsi, kategori)      | KPI, tren bulanan, filter apa pun     |
-| gold_rollup_wilayah        | rollup(pulau, provinsi, kategori)    | Drill-down wilayah (treemap)          |
-| gold_harian                | rollup + window rata-rata bergerak   | Deret waktu harian + MA7              |
+| gold_cube                  | cube(bulan, provinsi, kategori, kanal)| KPI, tren bulanan, filter apa pun    |
+| gold_rollup_wilayah        | rollup(kanal, pulau, prov, kategori) | Drill-down wilayah (treemap)          |
+| gold_harian                | CUBE + window rata-rata bergerak     | Deret waktu harian + MA7              |
 | gold_heatmap_kirim_rating  | GROUPING SETS + binning 2D           | Heatmap pengganti scatter jutaan titik|
 | gold_kuantil_kirim         | percentile_approx                    | Box plot terdistribusi per provinsi   |
 | gold_kuantil_nilai         | percentile_approx                    | Box plot nilai transaksi per kategori |
@@ -69,37 +69,38 @@ def _kuantil_ke_kolom(df, kolom_q="q"):
     return df.drop(kolom_q)
 
 
-def jalankan(spark):
+def jalankan(spark, metrik_pipeline=None):
     os.makedirs(os.path.join(config.GOLD_DIR, "csv"), exist_ok=True)
     silver = spark.read.parquet(config.SILVER_DIR).cache()
     silver.createOrReplaceTempView("silver")
     ringkas = {}
 
-    # 1) CUBE: semua kombinasi bulan x provinsi x kategori + subtotal + total.
+    # 1) CUBE: semua kombinasi bulan x provinsi x kategori x kanal + subtotal + total.
     #    grouping_id membedakan NULL "subtotal" dari NULL "data kosong".
     gold_cube = (
-        silver.cube("bulan", "provinsi", "kategori")
+        silver.cube("bulan", "provinsi", "kategori", "kanal")
         .agg(*metrik_aditif(), F.grouping_id().alias("gid"))
     )
     ringkas["gold_cube"] = simpan(gold_cube, "gold_cube")
 
-    # 2) ROLLUP: subtotal hierarkis pulau -> provinsi -> kategori.
+    # 2) ROLLUP: kanal menjadi filter, lalu subtotal wilayah -> kategori.
     gold_rollup = (
-        silver.rollup("pulau", "provinsi", "kategori")
+        silver.rollup("kanal", "pulau", "provinsi", "kategori")
         .agg(*metrik_aditif(), F.grouping_id().alias("gid"))
     )
     ringkas["gold_rollup_wilayah"] = simpan(gold_rollup, "gold_rollup_wilayah")
 
-    # 3) DERET WAKTU HARIAN per provinsi + NASIONAL, dengan rata-rata bergerak 7 hari.
+    # 3) DERET WAKTU HARIAN per provinsi/kanal + total nasional, dengan MA7.
     harian = (
-        silver.rollup("tanggal", "provinsi")
+        silver.cube("tanggal", "provinsi", "kanal")
         .agg(F.count("*").alias("pesanan"),
              F.sum(F.when(F.col("status") == "SELESAI", F.col("nilai_bersih")).otherwise(0)).alias("omzet"),
-             F.sum("hari_kirim").alias("sum_kirim"), F.count("hari_kirim").alias("n_kirim"))
-        .filter(F.col("tanggal").isNotNull())
+             F.sum("hari_kirim").alias("sum_kirim"), F.count("hari_kirim").alias("n_kirim"),
+             F.grouping_id().alias("gid"))
+        .filter(F.col("tanggal").isNotNull() & F.col("gid").isin(0, 1, 2, 3))
         .withColumn("provinsi", F.coalesce("provinsi", F.lit("NASIONAL")))
     )
-    w7 = Window.partitionBy("provinsi").orderBy("tanggal").rowsBetween(-6, 0)
+    w7 = Window.partitionBy("provinsi", "kanal").orderBy("tanggal").rowsBetween(-6, 0)
     harian = (
         harian.withColumn("omzet_ma7", F.avg("omzet").over(w7))
         .withColumn("pesanan_ma7", F.avg("pesanan").over(w7))
@@ -108,43 +109,73 @@ def jalankan(spark):
     )
     ringkas["gold_harian"] = simpan(harian, "gold_harian")
 
-    # 4) HEATMAP lama kirim (bin 0,5 hari) x rating -- GROUPING SETS:
-    #    sekaligus per provinsi dan nasional dalam satu kali lintas data.
+    # 4) HEATMAP lama kirim x rating; kanal dan provinsi dapat difilter.
     heat = spark.sql("""
-        SELECT COALESCE(provinsi, 'NASIONAL') AS provinsi,
+        SELECT COALESCE(provinsi, 'NASIONAL') AS provinsi, kanal,
                FLOOR(hari_kirim * 2) / 2      AS bin_kirim,
                rating,
                COUNT(*)                       AS jumlah
         FROM silver
         WHERE rating IS NOT NULL AND hari_kirim IS NOT NULL
-        GROUP BY GROUPING SETS ((provinsi, FLOOR(hari_kirim * 2) / 2, rating),
-                                (FLOOR(hari_kirim * 2) / 2, rating))
+        GROUP BY GROUPING SETS (
+            (provinsi, kanal, FLOOR(hari_kirim * 2) / 2, rating),
+            (provinsi, FLOOR(hari_kirim * 2) / 2, rating),
+            (kanal, FLOOR(hari_kirim * 2) / 2, rating),
+            (FLOOR(hari_kirim * 2) / 2, rating)
+        )
     """)
-    ringkas["gold_heatmap_kirim_rating"] = simpan(heat, "gold_heatmap_kirim_rating")
+    heat_rows = simpan(heat, "gold_heatmap_kirim_rating")
+    ringkas["gold_heatmap_kirim_rating"] = heat_rows
+    if metrik_pipeline is not None:
+        cube_rows = (
+            silver.withColumn("_bin_kirim", F.floor(F.col("hari_kirim") * 2) / 2)
+            .filter(F.col("rating").isNotNull() & F.col("hari_kirim").isNotNull())
+            .cube("provinsi", "kanal", "_bin_kirim", "rating")
+            .count()
+            .count()
+        )
+        metrik_pipeline["efisiensi_grouping_sets"] = {
+            "tabel": "gold_heatmap_kirim_rating",
+            "baris_grouping_sets": heat_rows,
+            "baris_cube": cube_rows,
+            "baris_dihemat": cube_rows - heat_rows,
+            "persen_dihemat": round((cube_rows - heat_rows) / max(cube_rows, 1) * 100, 1),
+        }
 
-    # 5) KUANTIL lama kirim per provinsi (+ nasional) -> box plot tanpa data mentah.
+    # 5) KUANTIL lama kirim per provinsi/kanal dan total nasional/kanal.
     q_expr = F.expr(f"percentile_approx(hari_kirim, array({','.join(map(str, KUANTIL))}), 1000)")
-    q_prov = silver.groupBy("provinsi").agg(q_expr.alias("q"), F.avg("hari_kirim").alias("rata2"),
-                                            F.count("hari_kirim").alias("n"))
-    q_nas = silver.agg(q_expr.alias("q"), F.avg("hari_kirim").alias("rata2"),
-                       F.count("hari_kirim").alias("n")).withColumn("provinsi", F.lit("NASIONAL"))
-    q_kirim = _kuantil_ke_kolom(q_prov.unionByName(q_nas))
+    q_kirim = (
+        silver.cube("provinsi", "kanal")
+        .agg(q_expr.alias("q"), F.avg("hari_kirim").alias("rata2"),
+             F.count("hari_kirim").alias("n"), F.grouping_id().alias("gid"))
+        .filter(F.col("gid").isin(0, 1, 2, 3))
+        .withColumn("provinsi", F.coalesce("provinsi", F.lit("NASIONAL")))
+    )
+    q_kirim = _kuantil_ke_kolom(q_kirim)
     ringkas["gold_kuantil_kirim"] = simpan(q_kirim, "gold_kuantil_kirim")
 
-    # 6) KUANTIL nilai transaksi per kategori.
+    # 6) KUANTIL nilai transaksi per kategori dan kanal.
     q_nilai = _kuantil_ke_kolom(
-        silver.filter(F.col("status") == "SELESAI").groupBy("kategori")
+        silver.filter(F.col("status") == "SELESAI").cube("kategori", "kanal")
         .agg(F.expr(f"percentile_approx(nilai_bersih, array({','.join(map(str, KUANTIL))}), 1000)").alias("q"),
-             F.avg("nilai_bersih").alias("rata2"), F.count("*").alias("n")))
+             F.avg("nilai_bersih").alias("rata2"), F.count("*").alias("n"),
+             F.grouping_id().alias("gid"))
+        .filter(F.col("gid").isin(0, 1, 2, 3))
+    )
     ringkas["gold_kuantil_nilai"] = simpan(q_nilai, "gold_kuantil_nilai")
 
-    # 7) POLA JAM x HARI (per provinsi + nasional).
+    # 7) POLA JAM x HARI per provinsi/kanal, termasuk agregat masing-masing.
     jam_hari = spark.sql("""
-        SELECT COALESCE(provinsi, 'NASIONAL') AS provinsi, hari_minggu, jam,
+        SELECT COALESCE(provinsi, 'NASIONAL') AS provinsi, kanal, hari_minggu, jam,
                COUNT(*) AS pesanan,
                SUM(CASE WHEN status = 'SELESAI' THEN nilai_bersih ELSE 0 END) AS omzet
         FROM silver
-        GROUP BY GROUPING SETS ((provinsi, hari_minggu, jam), (hari_minggu, jam))
+        GROUP BY GROUPING SETS (
+            (provinsi, kanal, hari_minggu, jam),
+            (provinsi, hari_minggu, jam),
+            (kanal, hari_minggu, jam),
+            (hari_minggu, jam)
+        )
     """)
     ringkas["gold_jam_hari"] = simpan(jam_hari, "gold_jam_hari")
 
